@@ -4,7 +4,7 @@
     
     <entry>
       <title><![CDATA[Django Celery 定时任务]]></title>
-      <url>/2018/03/21/title-%20Django%20Celery%20%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1/</url>
+      <url>/2018/03/21/Django%20Celery%20%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1/</url>
       <content type="html"><![CDATA[<p>环境信息：</p>
 <ol>
 <li>python 3.6.2</li>
@@ -28,17 +28,18 @@ INSTALLED_APPS = (
 CELERY_BEAT_SCHEDULER = &apos;django_celery_beat.schedulers.DatabaseScheduler&apos;
 </code></pre><p>Redis安装及启动：</p>
 <ol>
-<li>安装redis：<br>Mac上通过brew 进行安装</li>
-<li><p>列表项</p>
+<li>安装redis:<br>Mac上通过brew 进行安装</li>
+<li><p>列表项:</p>
 <p>输入命令: brew install redis</p>
 </li>
 </ol>
-<ol>
-<li>启动redis：<br> sudo /usr/local/bin/redis-server</li>
-<li>查看redis进程及端口：<br> ps aux|grep redis</li>
-</ol>
-<p>celery 安装<br>    pip install -U celery[redis]</p>
-<h1 id="Django-集成celery："><a href="#Django-集成celery：" class="headerlink" title="Django 集成celery："></a>Django 集成celery：</h1><ul>
+<p>3.启动redis:</p>
+<pre><code>sudo /usr/local/bin/redis-server
+</code></pre><p>查看redis进程及端口:</p>
+<pre><code>ps aux|grep redis
+</code></pre><p>celery 安装:</p>
+<pre><code>pip install -U celery[redis]
+</code></pre><h1 id="Django-集成celery："><a href="#Django-集成celery：" class="headerlink" title="Django 集成celery："></a>Django 集成celery：</h1><ul>
 <li>项目名称/<ul>
 <li>manage.py</li>
 </ul>
@@ -50,12 +51,11 @@ CELERY_BEAT_SCHEDULER = &apos;django_celery_beat.schedulers.DatabaseScheduler&ap
 <li>celery.py</li>
 </ul>
 </li>
-<li>mails/  # 这是一个app<ul>
+<li><p>mails/  # 这是一个app</p>
+<ul>
 <li>models.py</li>
 <li>views.py</li>
-<li>tasks.py<h1 id="配置以下文件"><a href="#配置以下文件" class="headerlink" title="配置以下文件"></a>配置以下文件</h1></li>
-</ul>
-</li>
+<li>tasks.py<h1 id="配置以下文件"><a href="#配置以下文件" class="headerlink" title="配置以下文件:"></a>配置以下文件:</h1></li>
 </ul>
 <ol>
 <li><p>项目下的celery.py<br> from <strong>future</strong> import absolute_import, unicode_literals<br> import os<br> import django<br> from celery import Celery<br> import datetime</p>
@@ -74,14 +74,94 @@ CELERY_BEAT_SCHEDULER = &apos;django_celery_beat.schedulers.DatabaseScheduler&ap
     另:
         也可以使用 from celery import shared_task
                 @shared_task
-    以上为使用例子
+以上为使用例子
 </code></pre></li>
-<li> 将django-celery-beat新增的model，配置到后台：<br> 看django_celery_beat.model可以看到一共是有5个model，具体的功能可以看源码，也很容易懂，这里主要用的是IntervalSchedule、CrontabSchedule和PeriodicTask。因为这里用的是xadmin后台的框架，但后台框架不会影响定时任务的功能，就不赘述。<br>需要注意Task name字段，为任务的路径或者名字，如果按照上述步骤配置的话，Task name应为mails.tasks.do_something。如果使用了@shared_task(name=’new_task_name’)进行重命名，那么Task name应为new_task_name<br>另外，如果是带参的定时任务，可以通过Arguments、Keyword arguments进行传参。</li>
+</ol>
+</li>
+</ul>
+<ol>
+<li> #将django-celery-beat新增的model，配置到后台：<br> 看django_celery_beat.model可以看到一共是有5个model，具体的功能可以看源码，也很容易懂，这里主要用的是IntervalSchedule、CrontabSchedule和PeriodicTask。因为这里用的是xadmin后台的框架，但后台框架不会影响定时任务的功能，就不赘述。<br>需要注意Task name字段，为任务的路径或者名字，如果按照上述步骤配置的话，Task name应为mails.tasks.do_something。如果使用了@shared_task(name=’new_task_name’)进行重命名，那么Task name应为new_task_name<br>另外，如果是带参的定时任务，可以通过Arguments、Keyword arguments进行传参。</li>
 </ol>
 <h1 id="接下来启动celery-在项目下运行"><a href="#接下来启动celery-在项目下运行" class="headerlink" title="接下来启动celery 在项目下运行:"></a>接下来启动celery 在项目下运行:</h1><pre><code>celery -A 定义的项目名称 worker -l info
 celery -A 定义的项目名称 beat -l info
 </code></pre><p>参考：<br>    <a href="https://actmerce.github.io/2018/03/21/django-celery-beat-1/" target="_blank" rel="noopener">https://actmerce.github.io/2018/03/21/django-celery-beat-1/</a></p>
 ]]></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Django 整合django-ckeditor的使用]]></title>
+      <url>/2018/03/21/Django%20%E6%95%B4%E5%90%88django-ckeditor%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
+      <content type="html"><![CDATA[<p>环境信息</p>
+<ul>
+<li>python 3.6.2</li>
+<li>Django 2.0.1</li>
+<li>django-ckeditor 5.4.0</li>
+</ul>
+<h1 id="用pip-安装ckeditor："><a href="#用pip-安装ckeditor：" class="headerlink" title="用pip 安装ckeditor："></a>用pip 安装ckeditor：</h1><pre><code>pip install django-ckeditor
+</code></pre><h1 id="在settings的INSTALLED-APPS注册："><a href="#在settings的INSTALLED-APPS注册：" class="headerlink" title="在settings的INSTALLED_APPS注册："></a>在settings的INSTALLED_APPS注册：</h1><pre><code>INSTALLED_APPS = [
+...
+
+&apos;ckeditor&apos;,
+&apos;ckeditor_uploader&apos;,  # 如果富文本中允许用户上传图片/文件到后台，则需要加上
+
+...
+</code></pre><p>]</p>
+<h1 id="配置上传文件路径（如果用到上传功能）："><a href="#配置上传文件路径（如果用到上传功能）：" class="headerlink" title="配置上传文件路径（如果用到上传功能）："></a>配置上传文件路径（如果用到上传功能）：</h1><pre><code>ckeditor的上传路径是将media的路径后边拼接upload_path，也就是说按照下边的配置，最终的上传路径为`/media/uploads/ 
+MEDIA_URL = &apos;/media/&apos;
+MEDIA_ROOT = os.path.join(BASE_DIR, &apos;media&apos;)
+CKEDITOR_UPLOAD_PATH = &quot;uploads/&quot;
+</code></pre><h1 id="富文本url配置"><a href="#富文本url配置" class="headerlink" title="富文本url配置:"></a>富文本url配置:</h1><pre><code>from django.urls import include, re_path
+urlpatterns = [
+    ...
+
+    # 富文本
+    re_path(r&apos;^ckeditor/&apos;, include(&apos;ckeditor_uploader.urls&apos;)),  # Django2.0要用&apos;re_path&apos;
+
+    ...
+]
+</code></pre><h1 id="在settings-按需求设置富文本面板（下面为常用配置）"><a href="#在settings-按需求设置富文本面板（下面为常用配置）" class="headerlink" title="在settings 按需求设置富文本面板（下面为常用配置）:"></a>在settings 按需求设置富文本面板（下面为常用配置）:</h1><pre><code>CKEDITOR_CONFIGS = {
+    &apos;default&apos;: {
+        &apos;toolbar_ToolbarConfig&apos;: [
+            {&apos;name&apos;: &apos;basic&apos;, &apos;items&apos;: [
+                &apos;Font&apos;, &apos;FontSize&apos;, &apos;BGColor&apos;, &apos;TextColor&apos;,
+                &apos;-&apos;,
+                &apos;JustifyLeft&apos;, &apos;JustifyCenter&apos;, &apos;JustifyRight&apos;, &apos;JustifyBlock&apos;,
+                &apos;-&apos;,
+                &apos;Bold&apos;, &apos;Italic&apos;, &apos;Underline&apos;, &apos;Strike&apos;, &apos;Undo&apos;, &apos;Redo&apos;,
+                &apos;-&apos;,
+                &apos;Strike&apos;, &apos;Subscript&apos;, &apos;Superscript&apos;,
+                &apos;-&apos;,
+                &apos;Image&apos;, &apos;Flash&apos;, &apos;Table&apos;, &apos;HorizontalRule&apos;, &apos;SpecialChar&apos;,
+            ]},
+            &apos;/&apos;,
+            {&apos;name&apos;: &apos;custom&apos;, &apos;items&apos;: [
+                &apos;Source&apos;,
+                &apos;-&apos;,
+                &apos;Preview&apos;, &apos;Maximize&apos;,
+            ]}
+        ],
+        &apos;toolbar&apos;: &apos;ToolbarConfig&apos;,
+        &apos;width&apos;: &apos;100%&apos;,
+    }
+}
+</code></pre><h1 id="field的使用方式："><a href="#field的使用方式：" class="headerlink" title="field的使用方式："></a>field的使用方式：</h1><pre><code>from django.db import models
+from ckeditor.fields import RichTextField
+from ckeditor_uploader.fields import RichTextUploadingField
+
+
+class Post(models.Model):
+    content_without_upload = RichTextField()  # 不带上传功能的富文本
+    content_with_upload = RichTextUploadingField()  # 带上传功能的富文本（需要先在INSTALL_APP中声明）
+</code></pre><h1 id="后记-前后端交互时候-要返回绝对路径-所以要设置一下-文件路径ckeditor-uploader-util-py中的get-media-url-path-，具体如下："><a href="#后记-前后端交互时候-要返回绝对路径-所以要设置一下-文件路径ckeditor-uploader-util-py中的get-media-url-path-，具体如下：" class="headerlink" title="后记,前后端交互时候 要返回绝对路径 所以要设置一下 文件路径ckeditor_uploader/util.py中的get_media_url(path)，具体如下："></a>后记,前后端交互时候 要返回绝对路径 所以要设置一下 文件路径ckeditor_uploader/util.py中的get_media_url(path)，具体如下：</h1><pre><code>def get_media_url(path):
+&quot;&quot;&quot;
+Determine system file&apos;s media URL.
+&quot;&quot;&quot;
+url_prefix = hasattr(settings, &apos;CKEDITOR_URL_PREFIX&apos;) and settings.CKEDITOR_URL_PREFIX or &apos;&apos;
+return url_prefix + default_storage.url(path)
+</code></pre><h1 id="随后只需要在settings中加入（注意是项目的线上地址）："><a href="#随后只需要在settings中加入（注意是项目的线上地址）：" class="headerlink" title="随后只需要在settings中加入（注意是项目的线上地址）："></a>随后只需要在settings中加入（注意是项目的线上地址）：</h1><pre><code>CKEDITOR_URL_PREFIX = &apos;https://actmerce.github.io&apos;
+</code></pre>]]></content>
       
         
     </entry>
